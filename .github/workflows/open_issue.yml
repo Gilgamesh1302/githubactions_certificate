@@ -1,0 +1,23 @@
+name: Open issue in github
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  open-issue:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Open issue
+        uses: actions/github-script@v8
+        with:
+          script: |
+            const title = "This is an issue opened by github actions"
+            const body = "Hello there, i am a github actions, and i opened this issue"
+            github.rest.issues.create({
+              title,
+              body,
+              owner: context.repo.owner,
+              repo: context.repo.repo
+            })
