@@ -1,9 +1,19 @@
 name: Open issue in github
 
 on:
-  push:
-    branches:
-      - main
+  workflow_dispatch:
+    inputs:
+      title:
+        type: string
+        required: true
+        description: Issue title
+      
+      body:
+        type: string
+        required: false
+        description: Issue body
+        default: This issue was created by Github Actions workflow
+
 
 jobs:
   open-issue:
@@ -15,8 +25,8 @@ jobs:
         uses: actions/github-script@v8
         with:
           script: |
-            const title = "This is an issue opened by github actions"
-            const body = "Hello there, i am a github actions, and i opened this issue"
+            const title = ${{ inputs.title }}
+            const body = ${{ inputs.body }}
             github.rest.issues.create({
               title,
               body,
