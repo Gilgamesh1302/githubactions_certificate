@@ -1,0 +1,23 @@
+name: Edit issue by adding label
+
+on:
+  issues:
+    types:
+      - opened
+
+permissions: 
+  issues: write
+
+jobs:
+  add-label-to-issue:
+    runs-on: ubuntu-latest
+    env:
+      ISSUE_URL: ${{ github.event.issue.html_url }}
+      GH_TOKEN: ${{ secrets.MY_TOKEN }}
+    
+    steps:
+      - name: Edit Title, add labels then assign owner
+        run: |
+          gh issue edit $ISSUE_URL --title "Edited by github_actions after creation" --add-label "edited,github action" --add-assignee "${{ github.repository_owner }}"
+    
+    
