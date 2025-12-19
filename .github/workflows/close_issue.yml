@@ -18,4 +18,4 @@ jobs:
     steps:
       - name: Close issue after commenting
         run: |
-          gh issue close -c "This issue is stale, proceed with closing" -r completed
+          gh issue close $ISSUE_URL -c "This issue is stale, proceed with closing" -r completed
