@@ -24,6 +24,7 @@ jobs:
       - name: Open issue
         uses: actions/github-script@v8
         with:
+          github-token: ${{ secrets.MY_TOKEN }}
           script: |
             const title = "${{ inputs.title }}"
             const body = "${{ inputs.body }}"
