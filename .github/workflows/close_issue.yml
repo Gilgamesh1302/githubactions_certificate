@@ -1,0 +1,21 @@
+name: Close Issue after edit
+
+on:
+  issues:
+    types:
+      - edited
+
+permissions:
+  issues: write
+
+
+jobs:
+  close-issue-after-edit:
+    runs-on: ubuntu-latest
+    env:
+      ISSUE_URL: ${{ github.event.issue.html_url }}
+      GH_TOKEN: ${{ secrets.MY_TOKEN }}
+    steps:
+      - name: Close issue after commenting
+        run: |
+          gh issue close -c "This issue is stale, proceed with closing" -r "Stale"

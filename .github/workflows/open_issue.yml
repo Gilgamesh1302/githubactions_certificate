@@ -3,6 +3,11 @@ name: Open issue in github
 on:
   workflow_dispatch:
     inputs:
+      trigger-workflows:
+        type: boolean
+        description: Trigger other workflows on issue creation
+        default: false
+        required: false
       title:
         type: string
         required: true
@@ -24,7 +29,7 @@ jobs:
       - name: Open issue
         uses: actions/github-script@v8
         with:
-          github-token: ${{ secrets.MY_TOKEN }}
+          github-token: ${{ inputs.trigger-workflows && secrets.MY_TOKEN || secrets.GITHUB_TOKEN}}
           script: |
             const title = "${{ inputs.title }}"
             const body = "${{ inputs.body }}"
